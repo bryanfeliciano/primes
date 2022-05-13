@@ -26,3 +26,12 @@ prop_ValidPrimesOnly val = if val < 0 || val >= length primes
 prop_primesArePrime val = if result == Just True
                           then length divisors == 0
                           else True
+    where
+        result = isPrime val
+        divisors = filter ((== 0) . (val `mod`)) [2 .. (val - 1)]
+
+prop_NonPrimesAreComposite val = if result == Just False then length divisors > 0 else True
+    where
+        result = isPrime val
+        divisors = filter ((== 0) . (val `mod`)) [2 .. (val - 1)]
+
